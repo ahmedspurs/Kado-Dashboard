@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const state = {
-  subCategories: [],
-  session_url: "http://localhost:5000/api/v1/subcategories",
+  filters: [],
+  session_url: "http://localhost:5000/api/v1/filters",
   addError: [],
   config: {
     headers: {
@@ -12,25 +12,21 @@ const state = {
 };
 
 const getters = {
-  allSubCategories: (state) => {
-    return state.subCategories;
+  allFilters: (state) => {
+    return state.filters;
   },
 };
 
 const actions = {
-  async fetchSubCategories({ commit, state }) {
+  async fetchFilters({ commit, state }) {
     const response = await axios.get(state.session_url, state.config);
-    commit("setSubCategories", response.data);
+    commit("setFilters", response.data);
   },
-  async addSubCategory({ commit, state }, subCategory) {
+  async addFilter({ commit, state }, data) {
     try {
-      const response = await axios.post(
-        state.session_url,
-        subCategory,
-        state.config
-      );
+      const response = await axios.post(state.session_url, data, state.config);
       if (response.data.success) {
-        commit("newSubCategory", response.data);
+        commit("newFilter", response.data);
         return true;
       } else {
         state.addError.push(response.data.message);
@@ -40,17 +36,17 @@ const actions = {
       return false;
     }
   },
-  async updateSubCategory({ commit, state }, payload) {
+  async updateFilter({ commit, state }, payload) {
     try {
       // loader
-      const { id, subCategory } = payload;
+      const { id, data } = payload;
       const response = await axios.put(
         `${state.session_url}/${id}`,
-        subCategory,
+        data,
         state.config
       );
       if (response.data.success) {
-        commit("editSubCategory", payload);
+        commit("editFilter", payload);
         return true;
       } else {
         return false;
@@ -59,14 +55,14 @@ const actions = {
       return false;
     }
   },
-  async deleteSubCategory({ commit, state }, id) {
+  async deleteFilter({ commit, state }, id) {
     try {
       const response = await axios.delete(
         `${state.session_url}/${id}`,
         state.config
       );
       if (response.data.success) {
-        commit("removeSubCategory", id);
+        commit("removeFilter", id);
         return true;
       } else {
         return false;
@@ -78,27 +74,27 @@ const actions = {
 };
 
 const mutations = {
-  setSubCategories: (state, subCategories) => {
-    state.subCategories = subCategories;
+  setFilters: (state, filters) => {
+    state.filters = filters;
   },
-  newSubCategory: (state, subCategory) => {
-    state.subCategories.unshift(subCategory);
+  newCategory: (state, data) => {
+    state.filters.unshift(data);
   },
-  removeSubCategory: (state, id) => {
+  removeFilter: (state, id) => {
     let index = null;
-    state.subCategories.forEach((element) => {
+    state.filters.forEach((element) => {
       if (element.id == id) {
-        index = state.subCategories.indexOf(element);
+        index = state.filters.indexOf(element);
         if (index > -1) {
-          state.subCategories.splice(index, 1);
+          state.filters.splice(index, 1);
         }
       }
     });
   },
-  editSubCategory: (state, data) => {
-    state.subCategories.forEach((element) => {
+  editFilter: (state, data) => {
+    state.filters.forEach((element) => {
       if (element.id == data.id) {
-        element = data.subCategory;
+        element = data.data;
       }
     });
   },

@@ -14,9 +14,9 @@ export default {
   components: { OrdersTable },
   name: "OrdersPage",
   inject: ["checkCookie"],
-  created() {
+  async created() {
     this.checkCookie();
-    this.$store.dispatch("fetchOrders");
+    await this.$store.dispatch("fetchOrders");
   },
 };
 </script>

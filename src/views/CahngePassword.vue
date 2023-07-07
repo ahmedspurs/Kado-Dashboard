@@ -142,7 +142,7 @@ export default {
             confirmPassword: this.confirmPassword,
           };
           const res = await axios.put(
-            "/api/v1/auth/adminupdatepassword",
+            "http://localhost:5000/api/v1/auth/adminupdatepassword",
             userData,
             this.config
           );

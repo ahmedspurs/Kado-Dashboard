@@ -7,37 +7,12 @@
       <div
         id="toast-success"
         v-show="success"
-        class="
-          flex
-          items-center
-          w-full w-full
-          flex
-          justify-between
-          items-center
-          p-4
-          mb-4
-          text-gray-500
-          bg-white
-          rounded-lg
-          shadow
-          dark:text-gray-400 dark:bg-gray-800
-        "
+        class="flex items-center w-full w-full flex justify-between items-center p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
         role="alert"
       >
         <div class="flex items-center">
           <div
-            class="
-              inline-flex
-              items-center
-              justify-center
-              flex-shrink-0
-              w-8
-              h-8
-              text-green-500
-              bg-green-100
-              rounded-lg
-              dark:bg-green-800 dark:text-green-200
-            "
+            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"
           >
             <svg
               class="w-5 h-5"
@@ -57,24 +32,7 @@
 
         <button
           type="button"
-          class="
-            -mx-1.5
-            -my-1.5
-            bg-white
-            text-gray-400
-            hover:text-gray-900
-            rounded-lg
-            focus:ring-2 focus:ring-gray-300
-            p-1.5
-            hover:bg-gray-100
-            inline-flex
-            h-8
-            w-8
-            dark:text-gray-500
-            dark:hover:text-white
-            dark:bg-gray-800
-            dark:hover:bg-gray-700
-          "
+          class="-mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
           data-dismiss-target="#toast-success"
           aria-label="Close"
         >
@@ -98,35 +56,12 @@
       <div
         id="toast-danger"
         v-show="failed"
-        class="
-          flex
-          items-center
-          justify-between
-          w-full
-          p-4
-          mb-4
-          text-gray-500
-          bg-white
-          rounded-lg
-          shadow
-          dark:text-gray-400 dark:bg-gray-800
-        "
+        class="flex items-center justify-between w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
         role="alert"
       >
         <div class="flex items-center">
           <div
-            class="
-              inline-flex
-              items-center
-              justify-center
-              flex-shrink-0
-              w-8
-              h-8
-              text-red-500
-              bg-red-100
-              rounded-lg
-              dark:bg-red-800 dark:text-red-200
-            "
+            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200"
           >
             <svg
               class="w-5 h-5"
@@ -146,24 +81,7 @@
 
         <button
           type="button"
-          class="
-            -mx-1.5
-            -my-1.5
-            bg-white
-            text-gray-400
-            hover:text-gray-900
-            rounded-lg
-            focus:ring-2 focus:ring-gray-300
-            p-1.5
-            hover:bg-gray-100
-            inline-flex
-            h-8
-            w-8
-            dark:text-gray-500
-            dark:hover:text-white
-            dark:bg-gray-800
-            dark:hover:bg-gray-700
-          "
+          class="-mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
           data-dismiss-target="#toast-danger"
           aria-label="Close"
         >
@@ -186,27 +104,12 @@
       <div class="py-2 w-full">
         <label
           for="search3"
-          class="
-            mb-2
-            text-sm
-            font-medium
-            text-gray-900
-            sr-only
-            dark:text-gray-300
-          "
+          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
           >بحث</label
         >
         <div class="relative">
           <div
-            class="
-              flex
-              absolute
-              inset-y-0
-              left-0
-              items-center
-              pl-3
-              pointer-events-none
-            "
+            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
           >
             <svg
               class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -227,23 +130,7 @@
             type="search"
             id="search3"
             v-model="search"
-            class="
-              block
-              p-4
-              pl-5
-              w-full
-              text-left text-sm text-gray-900
-              bg-gray-50
-              rounded-lg
-              border border-gray-300
-              focus:ring-blue-500 focus:border-blue-500
-              dark:bg-gray-700
-              dark:border-gray-600
-              dark:placeholder-gray-400
-              dark:text-white
-              dark:focus:ring-blue-500
-              dark:focus:border-blue-500
-            "
+            class="block p-4 pl-5 w-full text-left text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="البحث"
             required
           />
@@ -251,12 +138,7 @@
       </div>
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
-          class="
-            text-xs text-gray-700
-            uppercase
-            bg-gray-50
-            dark:bg-gray-700 dark:text-gray-400
-          "
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
             <th scope="col" class="px-6 py-3">رقم الرساله</th>
@@ -277,14 +159,7 @@
           >
             <th
               scope="row"
-              class="
-                px-6
-                py-4
-                font-medium
-                text-gray-900
-                dark:text-white
-                whitespace-nowrap
-              "
+              class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
             >
               {{ index + 1 }}
             </th>
@@ -292,19 +167,13 @@
               {{ message.name }}
             </td>
             <td class="px-6 py-4">{{ message.phone }}</td>
-            <td class="px-6 py-4">{{ message.message }}</td>
+            <td class="px-6 py-4">{{ message.content }}</td>
 
             <td class="px-6 py-4">
               <a
                 type="button"
                 @click="deleteMessage(message.id)"
-                class="
-                  deleteBtn
-                  font-medium
-                  text-red-600
-                  dark:text-blue-500
-                  hover:underline
-                "
+                class="deleteBtn font-medium text-red-600 dark:text-blue-500 hover:underline"
                 >حذف
               </a>
             </td>
@@ -371,9 +240,11 @@ export default {
         });
     },
   },
-  async created(){
+  inject: ["checkCookie"],
+  async created() {
+    this.checkCookie();
     await this.$store.dispatch("fetchMessages");
-  }
+  },
 };
 </script>
 

@@ -1,16 +1,15 @@
 <template>
   <div class="w-full py-8">
-    <h2 class="text-center py-4 text-black">كل المستخدمين</h2>
+    <h2 class="text-center py-4 text-black">كل الماركات</h2>
     <div class="text-center pb-4">
-      <router-link to="/AddUser">
-        <button class="px-4 py-2 bg-blue-600 text-white">
-          اضف مستخدم جديد
-        </button>
+      <router-link to="/AddBrand">
+        <button class="px-4 py-2 bg-blue-600 text-white">اضف ماركة جديد</button>
       </router-link>
     </div>
     <div class="flex justify-center items-center">
-      <users-tabel />
+      <Brand-table />
     </div>
+    <!-- add modal -->
     <vue-final-modal
       v-model="showModalAdd"
       classes="modal-container"
@@ -38,29 +37,29 @@
             />
           </svg>
         </button>
-        <add-user-input />
+        <add-Brand-input />
       </div>
     </vue-final-modal>
   </div>
 </template>
 
 <script>
-import UsersTabel from "@/components/UsersPage/UsersTabel.vue";
+import BrandTable from "@/components/BrandsPage/BrandsTable.vue";
+import AddBrandInput from "@/components/AddBrand/AddBrandInput.vue";
 import { VueFinalModal } from "vue-final-modal";
-import AddUserInput from "@/components/AddUser/AddUserInput.vue";
 
 export default {
-  name: "UsersPage",
-  components: { UsersTabel, VueFinalModal, AddUserInput },
+  components: { BrandTable, AddBrandInput, VueFinalModal },
+  name: "BrandPage",
+  inject: ["checkCookie"],
   data() {
     return {
       showModalAdd: false,
     };
   },
-  inject: ["checkCookie"],
-  async created() {
+  created() {
     this.checkCookie();
-    await this.$store.dispatch("fetchUsers");
+    this.$store.dispatch("fetchCategories");
   },
 };
 </script>

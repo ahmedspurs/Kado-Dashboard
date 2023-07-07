@@ -24,9 +24,9 @@ export default {
     };
   },
   inject: ["checkCookie"],
-  created() {
+  async created() {
     this.checkCookie();
-    this.$store.dispatch("fetchAds");
+    await this.$store.dispatch("fetchAds");
   },
 };
 </script>

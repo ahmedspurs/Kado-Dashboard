@@ -10,8 +10,9 @@ import EditUserInput from "@/components/EditUser/EditUserInput.vue";
 export default {
   components: { EditUserInput },
   inject: ["checkCookie"],
-  created() {
+  async created() {
     this.checkCookie();
+    await this.$store.dispatch("fetchUsers");
   },
 };
 </script>
