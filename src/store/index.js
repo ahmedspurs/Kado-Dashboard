@@ -9,6 +9,7 @@ import ads from "./ads";
 import messages from "./messages";
 import filters from "./filters";
 import secondaryCategories from "./secondaryCategories";
+import stats from "./stats";
 export default createStore({
   state: {},
   getters: {},
@@ -25,5 +26,6 @@ export default createStore({
     messages,
     filters,
     secondaryCategories,
+    stats,
   },
 });
