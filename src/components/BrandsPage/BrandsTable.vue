@@ -152,8 +152,8 @@
       <tbody>
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-          :key="category.id"
-          v-for="(category, index) in filtered"
+          :key="brand.id"
+          v-for="(brand, index) in filtered"
         >
           <th
             scope="row"
@@ -162,13 +162,13 @@
             {{ index + 1 }}
           </th>
           <td class="px-6 py-4">
-            <img :src="'/uploads/' + category.image" alt="" class="w-20" />
+            <img :src="'/uploads/' + brand.image" alt="" class="w-20" />
           </td>
-          <td class="px-6 py-4">{{ category.name }}</td>
+          <td class="px-6 py-4">{{ brand.name }}</td>
 
           <td class="px-6 py-4">
             <router-link
-              :to="{ name: 'EditCategory', params: { id: category.id || 1 } }"
+              :to="{ name: 'EditBrand', params: { id: brand.id || 1 } }"
             >
               <a
                 type="button"
@@ -181,7 +181,7 @@
           <td class="px-6 py-4">
             <a
               type="button"
-              @click="deleteCategory(category.id)"
+              @click="deleteBrand(brand.id)"
               class="deleteBtn font-medium text-red-600 dark:text-blue-500 hover:underline"
               >حذف
             </a>
@@ -224,19 +224,19 @@ export default {
   },
   components: { EditCategoryInput, VueFinalModal },
   computed: {
-    ...mapGetters(["allCategories"]),
+    ...mapGetters(["allBrands"]),
     filtered() {
-      return this.allCategories.filter((item) => {
+      return this.allBrands.filter((item) => {
         return item?.name?.includes(this.search);
       });
     },
   },
   methods: {
-    deleteCategory(id) {
+    deleteBrand(id) {
       this.$swal
         .fire({
           title: " هل انت متاكد ؟ ",
-          text: " لن تستطيع استرجاع هذا المنتج مجددا ! ",
+          text: " لن تستطيع استرجاع هذه الماركة مجددا ! ",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#1C64F2",
@@ -246,11 +246,11 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.$store.dispatch("deleteCategory", id);
+            this.$store.dispatch("deleteBrand", id);
             this.$swal.fire({
               icon: "success",
               title: " تم ",
-              text: " تم حذف المنتج بنجاح ",
+              text: " تم حذف الماركة بنجاح ",
               confirmButtonColor: "#16a34a",
             });
           } else {

@@ -23,7 +23,7 @@
 
       <div class="float-left top-0 right-0 m-3">
         <div class="text-center text-sm">الطلبات</div>
-        <div class="text-center text-3xl">{{ allStats.stats.orders }}</div>
+        <div class="text-center text-3xl">{{ allStats?.stats?.orders }}</div>
       </div>
     </div>
     <!-- second col -->
@@ -49,7 +49,7 @@
 
       <div class="float-left top-0 right-0 m-3">
         <div class="text-center text-sm">الاعلانات</div>
-        <div class="text-center text-3xl">{{ allStats.stats.ads }}</div>
+        <div class="text-center text-3xl">{{ allStats?.stats?.ads }}</div>
       </div>
     </div>
     <!-- third col -->
@@ -75,7 +75,7 @@
 
       <div class="float-left top-0 right-0 m-3">
         <div class="text-center text-sm">منتح</div>
-        <div class="text-center text-3xl">{{ allStats.stats.products }}</div>
+        <div class="text-center text-3xl">{{ allStats?.stats?.products }}</div>
       </div>
     </div>
 
@@ -103,7 +103,9 @@
 
       <div class="float-left top-0 right-0 m-3">
         <div class="text-center text-sm">قسم</div>
-        <div class="text-center text-3xl">{{ allStats.stats.categories }}</div>
+        <div class="text-center text-3xl">
+          {{ allStats?.stats?.categories }}
+        </div>
       </div>
     </div>
   </div>

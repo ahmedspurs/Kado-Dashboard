@@ -8,6 +8,7 @@ import orders from "./orders";
 import ads from "./ads";
 import messages from "./messages";
 import filters from "./filters";
+import brands from "./brands";
 import secondaryCategories from "./secondaryCategories";
 import stats from "./stats";
 export default createStore({
@@ -27,5 +28,6 @@ export default createStore({
     filters,
     secondaryCategories,
     stats,
+    brands,
   },
 });

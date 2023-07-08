@@ -2,7 +2,7 @@
   <form
     class="w-full p-4"
     enctype="multipart/form-data"
-    @submit.prevent="newCategory()"
+    @submit.prevent="editBrand()"
     ref="form"
   >
     <div class="floating-input mb-5 relative">
@@ -12,7 +12,7 @@
         class="border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm w-full p-3 h-16"
         placeholder=" "
         autocomplete="off"
-        v-model="name"
+        v-model="brand.name"
         required
         name="name"
       />
@@ -22,7 +22,26 @@
         >الاسم</label
       >
     </div>
-
+    <label
+      for="countries"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+    >
+      القسم
+    </label>
+    <select
+      id="countries"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      name="categoryId"
+    >
+      <option
+        :key="category.id"
+        :value="category.id"
+        v-for="category in allCategories"
+        :selected="selectedCategory"
+      >
+        {{ category.name }}
+      </option>
+    </select>
     <div class="drag py-2">
       <label
         for="countries"
@@ -58,15 +77,7 @@
               SVG, PNG, JPG or GIF (MAX. 800x400px)
             </p>
           </div>
-          <input
-            id="dropzone-file"
-            type="file"
-            name="photos"
-            class="hidden"
-            ref="myFile"
-            required
-            @change="selectedFile"
-          />
+          <input id="dropzone-file" type="file" name="photos" class="hidden" />
         </label>
       </div>
     </div>
@@ -84,33 +95,19 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
-  name: "AddCategoryInput",
+  name: "EditBrandInput",
   data() {
     return {
-      errors: "",
-      name: "",
-      imageFile: null,
+      brand: { id: null },
+      selectedCategory: null,
     };
   },
   methods: {
-    // all components response alert
-    responseAlert(text, title, icon) {
-      this.$swal.fire({
-        title: `${title}`,
-        text: ` ${text} `,
-        icon: `${icon}`,
-        toast: true,
-        position: "top-start",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    },
-    selectedFile() {
-      this.imageFile = this.$refs?.myFile?.files[0];
-    },
-    async newCategory() {
-      // loader  //
+    async editBrand() {
+      // loader
       let loader = this.$loading.show({
         // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
@@ -118,44 +115,40 @@ export default {
         color: "#836aee",
         blur: "2px",
       });
-
-      if (this.name == "" && this.imageFile == null) {
-        this.errors = " الرجاء ادخال الاسم و الصورة ";
-        this.responseAlert(this.errors, " عفوا ", "warning");
-        loader.hide();
-
-        return;
-      }
-      if (this.name == "" || this.name === undefined) {
-        this.errors = " الرجاء ادخال الاسم ";
-        this.responseAlert(this.errors, " عفوا ", "warning");
-        loader.hide();
-
-        return;
-      }
-      if (this.imageFile == null) {
-        this.errors = " الرجاء ارفاق صورة ";
-        this.responseAlert(this.errors, " عفوا ", "warning");
-        loader.hide();
-
-        return;
-      }
+      const id = this.brand?.id;
       const formData = new FormData(this.$refs.form);
-      if (await this.$store.dispatch("addCategory", formData)) {
-        this.responseAlert("تمت إضافة الماركة بنجاح", "تم", "success");
+      const payload = { id, brand: formData };
+      console.log(payload);
+      if (await this.$store.dispatch("updateBrand", payload)) {
+        this.responseAlert("تم تعديل الماركة بنجاح", "تم", "success");
       } else {
-        this.responseAlert(" حدث خطاء اثناء اضافة الماركة ", "عفوا", "error");
+        this.responseAlert("خطاء اثناء تعديل الماركة", "خطاء", "error");
       }
       loader.hide();
-
-      this.name = "";
     },
   },
-  provide() {
-    return {
-      responseAlert: this.responseAlert,
-    };
+  async created() {
+    const id = this.$route?.params?.id;
+    // const self = this;
+    try {
+      const brand = await axios.get(
+        `http://localhost:5000/api/v1/brands/${id}`
+      );
+      this.brand = brand.data;
+      this.selectedCategory = this.brand.category.name;
+      console.log(brand);
+    } catch (err) {
+      console.log(err);
+    }
+    // this.$store.state.brands.brands.forEach((brand) => {
+    //   if (brand?.id == id) {
+    //     self.brand = brand;
+    //     self.selectedCategory =
+    //   }
+    // });
   },
+  computed: mapGetters(["allCategories"]),
+  inject: ["responseAlert"],
 };
 </script>
 

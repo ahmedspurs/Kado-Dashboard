@@ -180,7 +180,7 @@ const routes = [
     component: BrandsPage,
   },
   {
-    path: "/EditBrand",
+    path: "/EditBrand/:id",
     name: "EditBrand",
     component: EditBrand,
   },

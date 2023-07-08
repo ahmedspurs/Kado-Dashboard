@@ -2,7 +2,7 @@
   <form
     class="w-full p-4"
     enctype="multipart/form-data"
-    @submit.prevent="newCategory()"
+    @submit.prevent="newBrand()"
     ref="form"
   >
     <div class="floating-input mb-5 relative">
@@ -22,6 +22,26 @@
         >الاسم</label
       >
     </div>
+
+    <label
+      for="countries"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+    >
+      القسم
+    </label>
+    <select
+      id="countries"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      name="categoryId"
+    >
+      <option
+        :key="category.id"
+        :value="category.id"
+        v-for="category in allCategories"
+      >
+        {{ category.name }}
+      </option>
+    </select>
 
     <div class="drag py-2">
       <label
@@ -84,6 +104,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "AddCategoryInput",
   data() {
@@ -109,7 +130,7 @@ export default {
     selectedFile() {
       this.imageFile = this.$refs?.myFile?.files[0];
     },
-    async newCategory() {
+    async newBrand() {
       // loader  //
       let loader = this.$loading.show({
         // Optional parameters
@@ -141,7 +162,7 @@ export default {
         return;
       }
       const formData = new FormData(this.$refs.form);
-      if (await this.$store.dispatch("addCategory", formData)) {
+      if (await this.$store.dispatch("addBrand", formData)) {
         this.responseAlert("تمت إضافة الماركة بنجاح", "تم", "success");
       } else {
         this.responseAlert(" حدث خطاء اثناء اضافة الماركة ", "عفوا", "error");
@@ -151,6 +172,12 @@ export default {
       this.name = "";
     },
   },
+
+  computed: { ...mapGetters(["allCategories"]) },
+  async created() {
+    await this.$store.dispatch("fetchCategories");
+  },
+
   provide() {
     return {
       responseAlert: this.responseAlert,

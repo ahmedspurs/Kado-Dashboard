@@ -10,9 +10,9 @@ import EditBrandInput from "@/components/EditBrand/EditBrandInput.vue";
 export default {
   components: { EditBrandInput },
   inject: ["checkCookie"],
-  created() {
-    this.$store.dispatch("fetchCategories");
+  async created() {
     this.checkCookie();
+    await this.$store.dispatch("fetchCategories");
   },
 };
 </script>

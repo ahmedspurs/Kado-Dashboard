@@ -57,9 +57,9 @@ export default {
       showModalAdd: false,
     };
   },
-  created() {
+  async created() {
     this.checkCookie();
-    this.$store.dispatch("fetchCategories");
+    await this.$store.dispatch("fetchBrands");
   },
 };
 </script>
