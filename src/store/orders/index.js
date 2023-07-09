@@ -2,7 +2,7 @@ import axios from "axios";
 
 const state = {
   orders: [],
-  session_url: "http://localhost:5000/api/v1/orders",
+  session_url: "/api/v1/orders",
   config: {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_token"),

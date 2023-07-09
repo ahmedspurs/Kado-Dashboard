@@ -2,7 +2,7 @@ import axios from "axios";
 
 const state = {
   secondaryCategories: [],
-  session_url: "http://localhost:5000/api/v1/secondary",
+  session_url: "/api/v1/secondary",
   addError: [],
   config: {
     headers: {

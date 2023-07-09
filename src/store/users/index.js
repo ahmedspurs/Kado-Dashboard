@@ -2,10 +2,10 @@ import axios from "axios";
 
 const state = {
   users: [],
-  session_url: "http://localhost:5000/api/v1/users",
-  login_url: "http://localhost:5000/api/v1/auth/adminlogin",
-  register_url: "http://localhost:5000/api/v1/auth/register",
-  logout_url: "http://localhost:5000/api/v1/auth/logout",
+  session_url: "/api/v1/users",
+  login_url: "/api/v1/auth/adminlogin",
+  register_url: "/api/v1/auth/register",
+  logout_url: "/api/v1/auth/logout",
   token: null,
   config: {
     headers: {

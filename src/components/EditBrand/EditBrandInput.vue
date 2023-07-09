@@ -131,9 +131,7 @@ export default {
     const id = this.$route?.params?.id;
     // const self = this;
     try {
-      const brand = await axios.get(
-        `http://localhost:5000/api/v1/brands/${id}`
-      );
+      const brand = await axios.get(`/api/v1/brands/${id}`);
       this.brand = brand.data;
       this.selectedCategory = this.brand.category.name;
       console.log(brand);

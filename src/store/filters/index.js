@@ -2,7 +2,7 @@ import axios from "axios";
 
 const state = {
   filters: [],
-  session_url: "http://localhost:5000/api/v1/filters",
+  session_url: "/api/v1/filters",
   addError: [],
   config: {
     headers: {

@@ -347,10 +347,7 @@ export default {
           blur: "2px",
         });
         let config = this.config;
-        const response = await axios.delete(
-          `http://localhost:5000/api/v1/products/${id}`,
-          config
-        );
+        const response = await axios.delete(`/api/v1/products/${id}`, config);
         loader.hide();
         if (response.status) {
           this.responseAlert("تم حذف صورة المنتج بنجاح", "تم", "success");
@@ -402,7 +399,7 @@ export default {
           return;
         }
         const response = await axios.put(
-          `http://localhost:5000/api/v1/products/image/${id}`,
+          `/api/v1/products/image/${id}`,
           formData,
           config
         );

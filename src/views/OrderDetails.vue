@@ -82,12 +82,9 @@ export default {
         blur: "2px",
       });
       const id = this.id;
-      const response = await axios.put(
-        `http://localhost:5000/api/v1/orders/${id}`,
-        {
-          status: this.status,
-        }
-      );
+      const response = await axios.put(`/api/v1/orders/${id}`, {
+        status: this.status,
+      });
       if (response.data.success) {
         this.responseAlert(" تم ", " تم تحديث حالة المنتج", "success");
       } else {
