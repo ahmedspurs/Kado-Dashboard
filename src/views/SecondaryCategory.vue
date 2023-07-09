@@ -1,16 +1,15 @@
 <template>
   <div class="w-full py-8">
-    <h2 class="text-center py-4 text-black">كل المستخدمين</h2>
+    <h2 class="text-center py-4 text-black">كل الاقسام</h2>
     <div class="text-center pb-4">
-      <router-link to="/AddUser">
-        <button class="px-4 py-2 bg-blue-600 text-white">
-          اضف مستخدم جديد
-        </button>
+      <router-link to="/AddSecondaryCategory">
+        <button class="px-4 py-2 bg-blue-600 text-white">اضف قسم جديد</button>
       </router-link>
     </div>
     <div class="flex justify-center items-center">
-      <users-tabel />
+      <SecondaryCategory-table />
     </div>
+    <!-- add modal -->
     <vue-final-modal
       v-model="showModalAdd"
       classes="modal-container"
@@ -38,29 +37,33 @@
             />
           </svg>
         </button>
-        <add-user-input />
+        <add-SecondaryCategory-input />
       </div>
     </vue-final-modal>
   </div>
 </template>
 
 <script>
-import UsersTabel from "@/components/UsersPage/UsersTabel.vue";
+import SecondaryCategoryTable from "@/components/SecondaryCategoryPage/SecondaryCategoryTable.vue";
+import AddSecondaryCategoryInput from "@/components/AddSecondaryCategory/AddSecondaryCategoryInput.vue";
 import { VueFinalModal } from "vue-final-modal";
-import AddUserInput from "@/components/AddUser/AddUserInput.vue";
 
 export default {
-  name: "UsersPage",
-  components: { UsersTabel, VueFinalModal, AddUserInput },
+  components: {
+    SecondaryCategoryTable,
+    AddSecondaryCategoryInput,
+    VueFinalModal,
+  },
+  name: "SecondaryCategoryPage",
+  inject: ["checkCookie"],
   data() {
     return {
       showModalAdd: false,
     };
   },
-  inject: ["checkCookie"],
-  async created() {
+  created() {
     this.checkCookie();
-    await this.$store.dispatch("fetchUsers");
+    this.$store.dispatch("fetchSecondaryCategories");
   },
 };
 </script>

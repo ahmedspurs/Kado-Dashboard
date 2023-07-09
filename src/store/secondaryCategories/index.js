@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const state = {
-  subCategories: [],
-  session_url: "http://localhost:5000/api/v1/subcategories",
+  secondaryCategories: [],
+  session_url: "http://localhost:5000/api/v1/secondary",
   addError: [],
   config: {
     headers: {
@@ -12,25 +12,25 @@ const state = {
 };
 
 const getters = {
-  allSubCategories: (state) => {
-    return state.subCategories;
+  allSecondaryCategories: (state) => {
+    return state.secondaryCategories;
   },
 };
 
 const actions = {
-  async fetchSubCategories({ commit, state }) {
+  async fetchSecondaryCategories({ commit, state }) {
     const response = await axios.get(state.session_url, state.config);
-    commit("setSubCategories", response.data);
+    commit("setSecondaryCategories", response.data);
   },
-  async addSubCategory({ commit, state }, subCategory) {
+  async addSecondaryCategory({ commit, state }, secondaryCategory) {
     try {
       const response = await axios.post(
         state.session_url,
-        subCategory,
+        secondaryCategory,
         state.config
       );
       if (response.data.success) {
-        commit("newSubCategory", response.data);
+        commit("newSecondaryCategory", response.data);
         return true;
       } else {
         state.addError.push(response.data.message);
@@ -40,17 +40,17 @@ const actions = {
       return false;
     }
   },
-  async updateSubCategory({ commit, state }, payload) {
+  async updateSecondaryCategory({ commit, state }, payload) {
     try {
       // loader
-      const { id, subCategory } = payload;
+      const { id, secondaryCategory } = payload;
       const response = await axios.put(
         `${state.session_url}/${id}`,
-        subCategory,
+        secondaryCategory,
         state.config
       );
       if (response.data.success) {
-        commit("editSubCategory", payload);
+        commit("editSecondaryCategory", payload);
         return true;
       } else {
         return false;
@@ -59,14 +59,14 @@ const actions = {
       return false;
     }
   },
-  async deleteSubCategory({ commit, state }, id) {
+  async deleteSecondaryCategory({ commit, state }, id) {
     try {
       const response = await axios.delete(
         `${state.session_url}/${id}`,
         state.config
       );
       if (response.data.success) {
-        commit("removeSubCategory", id);
+        commit("removeSecondaryCategory", id);
         return true;
       } else {
         return false;
@@ -78,27 +78,27 @@ const actions = {
 };
 
 const mutations = {
-  setSubCategories: (state, subCategories) => {
-    state.subCategories = subCategories;
+  setSecondaryCategories: (state, secondaryCategories) => {
+    state.secondaryCategories = secondaryCategories;
   },
-  newSubCategory: (state, subCategory) => {
-    state.subCategories.unshift(subCategory);
+  newSecondaryCategory: (state, secondaryCategory) => {
+    state.secondaryCategories.unshift(secondaryCategory);
   },
-  removeSubCategory: (state, id) => {
+  removeSecondaryCategory: (state, id) => {
     let index = null;
-    state.subCategories.forEach((element) => {
+    state.secondaryCategories.forEach((element) => {
       if (element.id == id) {
-        index = state.subCategories.indexOf(element);
+        index = state.secondaryCategories.indexOf(element);
         if (index > -1) {
-          state.subCategories.splice(index, 1);
+          state.secondaryCategories.splice(index, 1);
         }
       }
     });
   },
-  editSubCategory: (state, data) => {
-    state.subCategories.forEach((element) => {
+  editSecondaryCategory: (state, data) => {
+    state.secondaryCategories.forEach((element) => {
       if (element.id == data.id) {
-        element = data.subCategory;
+        element = data.secondaryCategory;
       }
     });
   },

@@ -97,7 +97,6 @@
         </svg>
       </button>
     </div>
-
     <!-- search -->
     <div class="py-2 w-full">
       <label
@@ -139,9 +138,8 @@
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
-          <th scope="col" class="px-6 py-3">رقم الفلتر</th>
-          <th scope="col" class="px-6 py-3">اسم الفلتر</th>
-          <th scope="col" class="px-6 py-3">القيم</th>
+          <th scope="col" class="px-6 py-3">رقم القسم الثانوي</th>
+          <th scope="col" class="px-6 py-3">اسم القسم الثانوي</th>
           <th scope="col" class="px-6 py-3">
             <span class="sr-only">Edit</span>
           </th>
@@ -149,10 +147,12 @@
             <span class="sr-only">Delete</span>
           </th>
         </tr>
+      </thead>
+      <tbody>
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-          :key="item.id"
-          v-for="(item, index) in filtered"
+          :key="SecondaryCategory.id"
+          v-for="(SecondaryCategory, index) in filtered"
         >
           <th
             scope="row"
@@ -161,16 +161,14 @@
             {{ index + 1 }}
           </th>
 
-          <th
-            scope="row"
-            class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-          >
-            {{ item.name }}
-          </th>
+          <td class="px-6 py-4">{{ SecondaryCategory.name }}</td>
 
           <td class="px-6 py-4">
             <router-link
-              :to="{ name: 'EditFilter', params: { id: item.id || 1 } }"
+              :to="{
+                name: 'EditSecondaryCategory',
+                params: { id: SecondaryCategory.id || 1 },
+              }"
             >
               <a
                 type="button"
@@ -183,37 +181,64 @@
           <td class="px-6 py-4">
             <a
               type="button"
-              @click="deleteAd(ad.id)"
+              @click="deleteSecondaryCategory(SecondaryCategory.id)"
               class="deleteBtn font-medium text-red-600 dark:text-blue-500 hover:underline"
               >حذف
             </a>
           </td>
         </tr>
-      </thead>
+      </tbody>
     </table>
+    <!-- edit modal -->
+    <vue-final-modal
+      v-model="showModal"
+      classes="modal-container"
+      content-class="modal-content"
+    >
+      <button class="modal__close w-full bg-white" @click="showModal = false">
+        X
+      </button>
+      <div class="modal__content md:w-1/2 h-3/4 mx-auto bg-white my-4">
+        <edit-SecondaryCategory-input
+          :SecondaryCategoryId="SecondaryCategoryId"
+        />
+      </div>
+    </vue-final-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import EditSecondaryCategoryInput from "../EditSecondaryCategory/EditSecondaryCategoryInput.vue";
+import { VueFinalModal } from "vue-final-modal";
 
 export default {
-  name: "MarketingTable",
+  name: "OrdersTable",
   data() {
     return {
       success: false,
       failed: false,
+      showModal: false,
       showModalAdd: false,
-      id: "",
+      SecondaryCategoryId: "",
       search: "",
     };
   },
+  components: { EditSecondaryCategoryInput, VueFinalModal },
+  computed: {
+    ...mapGetters(["allSecondaryCategories"]),
+    filtered() {
+      return this.allSecondaryCategories.filter((item) => {
+        return item?.name?.includes(this.search);
+      });
+    },
+  },
   methods: {
-    deleteAd(id) {
+    deleteSecondaryCategory(id) {
       this.$swal
         .fire({
           title: " هل انت متاكد ؟ ",
-          text: " لن تستطيع استرجاع هذا الاعلان مجددا ! ",
+          text: " لن تستطيع استرجاع هذا المنتج مجددا ! ",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#1C64F2",
@@ -223,7 +248,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.$store.dispatch("deleteAd", id);
+            this.$store.dispatch("deleteSecondaryCategory", id);
             this.$swal.fire({
               icon: "success",
               title: " تم ",
@@ -242,22 +267,47 @@ export default {
         });
     },
     modal(id) {
-      this.id = id;
-      this.showModalAdd = true;
+      this.showModal = true;
+      this.SecondaryCategoryId = id;
     },
-  },
-  computed: {
-    ...mapGetters(["allFilters"]),
-    filtered() {
-      return this.allFilters?.filter((item) => {
-        return item?.name?.includes(this.search);
-      });
-    },
-  },
-  async created() {
-    await this.$store.dispatch("fetchFilters");
   },
 };
 </script>
 
-<style></style>
+<style>
+.deleteBtn {
+  cursor: pointer;
+}
+::v-deep .modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+::v-deep .modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  background: #fff;
+}
+.modal__title {
+  margin: 0 2rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+</style>
+
+<style scoped>
+.dark-mode div::v-deep .modal-content {
+  border-color: #2d3748;
+  background-color: #1a202c;
+}
+</style>

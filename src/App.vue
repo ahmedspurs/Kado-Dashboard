@@ -56,13 +56,6 @@ export default {
   },
   async created() {
     await this.checkCookie();
-    this.$store.dispatch("fetchCategories");
-    this.$store.dispatch("fetchSubCategories");
-    this.$store.dispatch("fetchProducts");
-    this.$store.dispatch("fetchUsers");
-    this.$store.dispatch("fetchDeliveries");
-    this.$store.dispatch("fetchOrders");
-    this.$store.dispatch("fetchAds");
   },
 };
 </script>

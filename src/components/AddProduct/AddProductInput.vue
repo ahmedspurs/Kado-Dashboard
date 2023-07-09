@@ -219,6 +219,32 @@
       <option value="false">لا</option>
       <option value="true">نعم</option>
     </select>
+    <!-- products filters -->
+    <label
+      for="filters"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+    >
+      الفلاتر
+    </label>
+    <div class="" v-for="item in allFilters" :key="item.id">
+      <label
+        for="tags"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+      >
+        {{ item.name }}
+      </label>
+      <div v-for="tag in item.tags" :key="tag.id">
+        <label for="">{{ tag.tag }}</label>
+        <input
+          type="checkbox"
+          v-model="tags"
+          :value="tag.id"
+          :name="tag.id"
+          id=""
+        />
+      </div>
+    </div>
+    <button class="bg-indingo-50 p-4" @click="logger()">log tags</button>
 
     <div class="drag py-2">
       <label
@@ -302,6 +328,7 @@ export default {
   name: "EditProductInput",
   data() {
     return {
+      tags: [],
       name: "",
       store: "",
       storePhone: "",
@@ -315,6 +342,9 @@ export default {
     };
   },
   methods: {
+    logger() {
+      console.log(this.tags);
+    },
     async createProduct() {
       // loader
       let loader = this.$loading.show({
@@ -374,6 +404,8 @@ export default {
         return;
       }
       const formData = new FormData(this.$refs.form);
+      // console.log(this.tags);
+      formData.append("tags", this.tags);
       if (await this.$store.dispatch("addProduct", formData)) {
         this.responseAlert("تمت إضافة المنتج بنجاح", "تم", "success");
       } else {
@@ -392,7 +424,10 @@ export default {
       this.discr = "";
     },
   },
-  computed: { ...mapGetters(["allSubCategories", "allProducts"]) },
+  computed: { ...mapGetters(["allSubCategories", "allFilters"]) },
+  async created() {
+    await this.$store.dispatch("fetchFilters");
+  },
   inject: ["responseAlert"],
 };
 </script>

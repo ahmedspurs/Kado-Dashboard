@@ -24,19 +24,19 @@
       for="countries"
       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
     >
-      القسم
+      القسم الثانوي
     </label>
     <select
       id="countries"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      name="categoryId"
+      name="secondaryCategoryId"
     >
       <option
-        :key="category.id"
-        :value="category.id"
-        v-for="category in allCategories"
+        :key="secondaryCategory.id"
+        :value="secondaryCategory.id"
+        v-for="secondaryCategory in allSecondaryCategories"
       >
-        {{ category.name }}
+        {{ secondaryCategory.name }}
       </option>
     </select>
 
@@ -118,8 +118,6 @@ export default {
         return;
       }
       const formData = new FormData(this.$refs.form);
-      console.log(formData.get("name"));
-      console.log(formData.get("categoryId"));
       if (await this.$store.dispatch("addSubCategory", formData)) {
         this.responseAlert("تمت إضافة القسم الفرعي بنجاح", "تم", "success");
       } else {
@@ -131,7 +129,10 @@ export default {
     },
   },
   inject: ["responseAlert"],
-  computed: { ...mapGetters(["allCategories"]) },
+  computed: { ...mapGetters(["allSecondaryCategories"]) },
+  created() {
+    this.$store.dispatch("fetchSecondaryCategories");
+  },
 };
 </script>
 

@@ -19,11 +19,5 @@ export default {
   components: {
     HomeServices,
   },
-  created(){
-        this.checkCookie();
-
-  },
-  inject: ["checkCookie"],
-
 };
 </script>

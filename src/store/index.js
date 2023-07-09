@@ -7,7 +7,10 @@ import deliveries from "./deliveries";
 import orders from "./orders";
 import ads from "./ads";
 import messages from "./messages";
-
+import filters from "./filters";
+import brands from "./brands";
+import secondaryCategories from "./secondaryCategories";
+import stats from "./stats";
 export default createStore({
   state: {},
   getters: {},
@@ -22,5 +25,9 @@ export default createStore({
     orders,
     ads,
     messages,
+    filters,
+    secondaryCategories,
+    stats,
+    brands,
   },
 });

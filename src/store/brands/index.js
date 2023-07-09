@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const state = {
-  subCategories: [],
-  session_url: "http://localhost:5000/api/v1/subcategories",
+  brands: [],
+  session_url: "http://localhost:5000/api/v1/brands",
   addError: [],
   config: {
     headers: {
@@ -12,25 +12,21 @@ const state = {
 };
 
 const getters = {
-  allSubCategories: (state) => {
-    return state.subCategories;
+  allBrands: (state) => {
+    return state.brands;
   },
 };
 
 const actions = {
-  async fetchSubCategories({ commit, state }) {
+  async fetchBrands({ commit, state }) {
     const response = await axios.get(state.session_url, state.config);
-    commit("setSubCategories", response.data);
+    commit("setBrands", response.data);
   },
-  async addSubCategory({ commit, state }, subCategory) {
+  async addBrand({ commit, state }, ad) {
     try {
-      const response = await axios.post(
-        state.session_url,
-        subCategory,
-        state.config
-      );
+      const response = await axios.post(state.session_url, ad, state.config);
       if (response.data.success) {
-        commit("newSubCategory", response.data);
+        commit("newBrand", response.data);
         return true;
       } else {
         state.addError.push(response.data.message);
@@ -40,17 +36,16 @@ const actions = {
       return false;
     }
   },
-  async updateSubCategory({ commit, state }, payload) {
+  async updateBrand({ commit, state }, payload) {
     try {
-      // loader
-      const { id, subCategory } = payload;
+      const { id, brand } = payload;
       const response = await axios.put(
         `${state.session_url}/${id}`,
-        subCategory,
+        brand,
         state.config
       );
       if (response.data.success) {
-        commit("editSubCategory", payload);
+        commit("editBrand", payload);
         return true;
       } else {
         return false;
@@ -59,14 +54,14 @@ const actions = {
       return false;
     }
   },
-  async deleteSubCategory({ commit, state }, id) {
+  async deleteBrand({ commit, state }, id) {
     try {
       const response = await axios.delete(
         `${state.session_url}/${id}`,
         state.config
       );
       if (response.data.success) {
-        commit("removeSubCategory", id);
+        commit("removeBrand", id);
         return true;
       } else {
         return false;
@@ -78,27 +73,27 @@ const actions = {
 };
 
 const mutations = {
-  setSubCategories: (state, subCategories) => {
-    state.subCategories = subCategories;
+  setBrands: (state, brands) => {
+    state.brands = brands;
   },
-  newSubCategory: (state, subCategory) => {
-    state.subCategories.unshift(subCategory);
+  newBrand: (state, brand) => {
+    state.brands.unshift(brand);
   },
-  removeSubCategory: (state, id) => {
+  removeBrand: (state, id) => {
     let index = null;
-    state.subCategories.forEach((element) => {
+    state.brands.forEach((element) => {
       if (element.id == id) {
-        index = state.subCategories.indexOf(element);
+        index = state.brands.indexOf(element);
         if (index > -1) {
-          state.subCategories.splice(index, 1);
+          state.brands.splice(index, 1);
         }
       }
     });
   },
-  editSubCategory: (state, data) => {
-    state.subCategories.forEach((element) => {
+  editBrand: (state, data) => {
+    state.brands.forEach((element) => {
       if (element.id == data.id) {
-        element = data.subCategory;
+        element = data.brand;
       }
     });
   },

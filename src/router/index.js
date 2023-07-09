@@ -25,6 +25,12 @@ import MessagesPage from "../views/MessagesPage.vue";
 import FiltersPage from "../views/FiltersPage.vue";
 import AddFilter from "../views/AddFilter.vue";
 import EditFilter from "../views/EditFilter.vue";
+import BrandsPage from "../views/BrandsPage.vue";
+import AddBrand from "../views/AddBrand.vue";
+import EditBrand from "../views/EditBrand.vue";
+import SecondaryCategory from "../views/SecondaryCategory.vue";
+import AddSecondaryCategory from "../views/AddSecondaryCategory.vue";
+import EditSecondaryCategory from "../views/EditSecondaryCategory.vue";
 
 const routes = [
   {
@@ -168,7 +174,36 @@ const routes = [
     name: "EditFilter",
     component: EditFilter,
   },
-  
+  {
+    path: "/BrandsPage",
+    name: "BrandsPage",
+    component: BrandsPage,
+  },
+  {
+    path: "/EditBrand/:id",
+    name: "EditBrand",
+    component: EditBrand,
+  },
+  {
+    path: "/AddBrand",
+    name: "AddBrand",
+    component: AddBrand,
+  },
+  {
+    path: "/SecondaryCategory",
+    name: "SecondaryCategory",
+    component: SecondaryCategory,
+  },
+  {
+    path: "/AddSecondaryCategory",
+    name: "AddSecondaryCategory",
+    component: AddSecondaryCategory,
+  },
+  {
+    path: "/EditSecondaryCategory",
+    name: "EditSecondaryCategory",
+    component: EditSecondaryCategory,
+  },
 ];
 
 const router = createRouter({
