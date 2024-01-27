@@ -170,7 +170,7 @@
 
           <td class="px-6 py-4">
             <router-link
-              :to="{ name: 'EditFilter', params: { id: item.id || 1 } }"
+              :to="{ name: 'EditFilter', params: { id: item?.id || 1 } }"
             >
               <a
                 type="button"

@@ -11,7 +11,6 @@ export default {
   components: { EditFilterInput },
   inject: ["checkCookie"],
   created() {
-    this.$store.dispatch("fetchCategories");
     this.checkCookie();
   },
 };

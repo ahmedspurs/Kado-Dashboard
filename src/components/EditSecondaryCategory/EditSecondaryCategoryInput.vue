@@ -74,8 +74,8 @@ export default {
         blur: "2px",
       });
       const id = this.SecondaryCategory?.id;
-      const formData = new FormData(this.$refs.form);
-      const payload = { id, SecondaryCategory: formData };
+      // const formData = new FormData(this.$refs.form);
+      const payload = { id, secondaryCategory: this.SecondaryCategory };
       if (await this.$store.dispatch("updateSecondaryCategory", payload)) {
         this.responseAlert("تم تعديل الفئة بنجاح", "تم", "success");
       } else {

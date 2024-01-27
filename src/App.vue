@@ -60,4 +60,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Cairo&display=swap");
+* {
+  font-family: "Cairo", sans-serif !important;
+}
+</style>

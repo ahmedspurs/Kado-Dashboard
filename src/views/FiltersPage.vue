@@ -26,7 +26,7 @@ export default {
   inject: ["checkCookie"],
   async created() {
     this.checkCookie();
-    await this.$store.dispatch("fetchFIlters");
+    // await this.$store.dispatch("fetchFIlters");
   },
 };
 </script>

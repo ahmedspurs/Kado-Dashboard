@@ -170,7 +170,7 @@ const routes = [
     component: AddFilter,
   },
   {
-    path: "/EditFilter",
+    path: "/EditFilter/:id",
     name: "EditFilter",
     component: EditFilter,
   },

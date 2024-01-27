@@ -10,7 +10,7 @@
         type="text"
         id="name"
         class="border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm w-full p-3 h-16"
-        placeholder=" "
+        placeholder="الاسم"
         autocomplete="off"
         v-model="name"
         required
@@ -22,37 +22,40 @@
         >الاسم</label
       >
     </div>
-
-    <div class="floating-input mb-5 relative">
-      <input
-        type="text"
-        id="name"
-        class="border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm w-full p-3 h-16"
-        placeholder=" "
-        autocomplete="off"
-        v-model="option"
-        required
-        name="name"
-      />
-      <label
-        for="name"
-        class="absolute top-0 right-0 px-3 py-5 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out"
-        >القيمة</label
+    <div class="mb-2">
+      <button
+        @click="options.push({})"
+        type="button"
+        class="bg-blue-600 px-4 py-2 text-white rounded"
+        expand="block"
       >
+        اضف قيمة جديدة
+      </button>
     </div>
 
-    <button
-      @click="pushValues()"
-      class="bg-blue-600 px-4 py-2 text-white rounded"
-      expand="block"
+    <div
+      class="floating-input mb-5 relative"
+      v-for="option in options"
+      :key="option"
     >
-      اضف قيمة جديدة
-    </button>
-    <ul>
-      <li v-for="value in values" :key="value" class="flex items-center py-2">
+      <div style="display: flex">
         <div>
-          {{ value.tag }}
-          <button class="p-1 rounded-full" @click="deleteTag(value)">
+          <input
+            type="text"
+            id="name"
+            class="border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm w-full p-3 h-16"
+            placeholder="القيمة"
+            autocomplete="off"
+            v-model="option.tag"
+            name="name"
+          />
+        </div>
+        <div>
+          <button
+            :disabled="options.length <= 1"
+            class="p-1 rounded-full"
+            @click="deleteTag(option)"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -69,8 +72,9 @@
             </svg>
           </button>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
+
     <div class="checkout my-2">
       <button
         class="bg-blue-600 px-4 py-2 text-white rounded"
@@ -92,17 +96,12 @@ export default {
       name: "",
       imageFile: null,
       values: [],
-      option: "",
+      options: [{}],
     };
   },
   methods: {
     deleteTag(value) {
-      this.values.splice(value.id, 1);
-    },
-    pushValues() {
-      this.values.push({ tag: this.option });
-      this.option = "";
-      console.log(this.values);
+      this.options.splice(value.id, 1);
     },
     // all components response alert
     responseAlert(text, title, icon) {
@@ -133,17 +132,16 @@ export default {
 
         return;
       }
-      if (this.values.lenght <= 0) {
-        this.errors = " الرجاء ادخال الاسم ";
+      if (this.options.lenght <= 0) {
+        this.errors = " الرجاء ادخال قيمة للفلتر ";
         this.responseAlert(this.errors, " عفوا ", "warning");
         loader.hide();
 
         return;
       }
-      this.values.push({ tag: this.option });
       const data = {
         name: this.name,
-        values: JSON.stringify(this.values),
+        values: JSON.stringify(this.options),
       };
       if (await this.$store.dispatch("addFilter", data)) {
         this.responseAlert("تمت إضافة الفلتر بنجاح", "تم", "success");
@@ -152,8 +150,7 @@ export default {
       }
 
       this.name = "";
-      this.option = "";
-      this.values = [];
+      this.options = [{}];
       loader.hide();
     },
   },
